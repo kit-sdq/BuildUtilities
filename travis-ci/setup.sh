@@ -14,5 +14,6 @@
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 . $DIR/installMaven.sh
+. $DIR/downloadJamopp.sh
 
 export PATH=$DIR:$PATH
