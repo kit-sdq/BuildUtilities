@@ -1,5 +1,12 @@
-#!/bin/bash 
+#!/bin/bash
 # Installs a recent version of maven into /tmp and adds it to path  
+#
+# Add this to your .travis.yml:
+#
+#	before_install:
+#   - git clone --depth 1 https://github.com/vitruv-tools/BuildUtilities.git /tmp/BuildUtils
+#	- . /tmp/BuildUtilities/travis-ci/installMaven.sh
+#	install: true
 
 wget -P /tmp http://www.apache.org/dist/maven/maven-3/3.3.9/binaries/apache-maven-3.3.9-bin.zip 
 unzip -d /tmp -qq /tmp/apache-maven-3.3.9-bin.zip 
