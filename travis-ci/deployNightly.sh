@@ -10,6 +10,10 @@ if [ $TRAVIS_PULL_REQUEST == 'false' ]
 then
     echo "Promoting an untagged build on vitruv-tools.github.io/p2/nightly"
     cd $2/target
+	if [ -d p2 ]
+	then
+		rm -r p2
+	fi
     git clone https://$GITHUB_DEPLOY_TOKEN@github.com/vitruv-tools/p2.git -b gh-pages --quiet
     if [ -d p2/nightly/$1 ]
     then
