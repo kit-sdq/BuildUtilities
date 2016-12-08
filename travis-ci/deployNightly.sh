@@ -2,6 +2,7 @@
 # Parameters:
 # $1: The name of the update site (gets aggregated to the aggregate Vitruv site)
 # $2: The path to the update site project in this repository (e.g. releng/tools.vitruv.updatesite)
+# $3: The name of the folder into which the update site was generated (e.g. repository or final)
 
 echo "Build $TRAVIS_JOB_NUMBER"
 echo "Git: $TRAVIS_COMMIT [$TRAVIS_BRANCH]"
@@ -16,9 +17,9 @@ then
         echo "An old version of the nightly repository has been found and removed"
     fi
     echo "Creating the nighly repository"
-    cp -r repository p2/nightly/
+    cp -r $3 p2/nightly/
 	ls p2/nightly
-    mv p2/nightly/repository p2/nightly/$1
+    mv p2/nightly/$3 p2/nightly/$1
     echo "Nightly repository created"
     ls p2/nightly/$1
     cd p2/nightly
