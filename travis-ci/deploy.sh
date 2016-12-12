@@ -15,7 +15,12 @@ DEPLOYMENT_FOLDER="nightly"
 echo "Build $TRAVIS_JOB_NUMBER"
 echo "Git: $TRAVIS_COMMIT [$TRAVIS_BRANCH]"
 
-if [ $TRAVIS_PULL_REQUEST != 'false' ]
+if [ $TRAVIS_BRANCH != 'master']
+then
+	echo "Not deploying other branches than master"
+	exit
+fi
+if [ $TRAVIS_PULL_REQUEST != 'false']
 then
 	echo "Not deploying commit because it is a pull request"
 	exit
