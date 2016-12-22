@@ -1,16 +1,19 @@
 # Deploys the project update site to the Vitruv update site repository
 # Parameters:
-# $1: The name of the update site (gets aggregated to the aggregate Vitruv site)
-# $2: The path to the update site project in this repository (e.g. releng/tools.vitruv.updatesite)
+# $1: The name of the (sub) update site
+# $2: The path to the update site project in this repository (e.g. releng/edu.kit.ipd.sdq.commons.updatesite)
 # $3: The name of the folder into which the update site was generated (e.g. repository or final)
+# $4: The name of the GitHub organization (e.g. kit-sdq)
+# $5: The name of the update site project on GitHub
 
 SUB_UPDATESITE_NAME="$1"
 GENERATED_UPDATESITE_PATH="$2"
 GENERATED_UPDATESITE_FOLDER="$3"
+GITHUB_ORGANIZATION_NAME="$4"
+UPDATESITE_PROJECT="$5"
 
-GITHUB_PROJECT_PATH="@github.com/vitruv-tools/updatesite.git"
-GITHUB_PAGES_PATH="vitruv-tools.github.io/updatesite/"
-UPDATESITE_PROJECT="updatesite"
+GITHUB_PROJECT_PATH="@github.com/$GITHUB_ORGANIZATION_NAME/$UPDATESITE_PROJECT.git"
+GITHUB_PAGES_PATH="$GITHUB_ORGANIZATION_NAME.github.io/$UPDATESITE_PROJECT/"
 DEPLOYMENT_FOLDER="nightly"
 echo "Build $TRAVIS_JOB_NUMBER"
 echo "Git: $TRAVIS_COMMIT [$TRAVIS_BRANCH]"
@@ -57,8 +60,8 @@ mkdir -p $UPDATESITE_PROJECT/$DEPLOYMENT_FOLDER
 cp -r $SUB_UPDATESITE_NAME $UPDATESITE_PROJECT/$DEPLOYMENT_FOLDER/
 echo "Repository created"
 cd $UPDATESITE_PROJECT/$DEPLOYMENT_FOLDER
-git config user.email "vitruv.tools@gmail.com"
-git config user.name "AutoReleng"
+git config user.email "travis-ci"
+git config user.name "Travis-CI"
 git add -A
 git commit -m "Promoting a new nightly build"
 git push origin master
