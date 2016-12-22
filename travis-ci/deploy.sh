@@ -63,7 +63,7 @@ cd $UPDATESITE_PROJECT/$DEPLOYMENT_FOLDER
 git config user.email "travis-ci"
 git config user.name "Travis-CI"
 git add -A
-git commit -m "Promoting a new nightly build"
+git commit -m "Promoting a new nightly build for $SUB_UPDATESITE_NAME"
 git push origin master
 echo "Build promoted"
 
