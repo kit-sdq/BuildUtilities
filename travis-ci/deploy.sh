@@ -11,6 +11,7 @@ GENERATED_UPDATESITE_PATH="$2"
 GENERATED_UPDATESITE_FOLDER="$3"
 GITHUB_ORGANIZATION_NAME="$4"
 UPDATESITE_PROJECT="$5"
+VERSION_SUFFIX=""
 
 GITHUB_PROJECT_PATH="@github.com/$GITHUB_ORGANIZATION_NAME/$UPDATESITE_PROJECT.git"
 GITHUB_PAGES_PATH="$GITHUB_ORGANIZATION_NAME.github.io/$UPDATESITE_PROJECT/"
@@ -18,11 +19,6 @@ DEPLOYMENT_FOLDER="nightly"
 echo "Build $TRAVIS_JOB_NUMBER"
 echo "Git: $TRAVIS_COMMIT [$TRAVIS_BRANCH]"
 
-if [ $TRAVIS_BRANCH != 'master' ]
-then
-	echo "Not deploying other branches than master"
-	exit
-fi
 if [ $TRAVIS_PULL_REQUEST != 'false' ]
 then
 	echo "Not deploying commit because it is a pull request"
@@ -32,11 +28,17 @@ fi
 CURRENT_TAG=$(git name-rev --name-only --tags HEAD)
 if [ $CURRENT_TAG == 'undefined' ]
 then
+	if [ $TRAVIS_BRANCH != 'master' ]
+	then
+		echo "Not deploying other branches than master"
+		exit
+	fi
 	echo "Promoting an untagged build on $GITHUB_PAGES_PATH$DEPLOYMENT_FOLDER"
-else
+elif [[ $CURRENT_TAG == releases/* ]]; then
 	LAST_TAG=$(git describe --abbrev=0 --tags)
-	DEPLOYMENT_FOLDER="releases"
-	echo "Promoting the release $LAST_TAG on $GITHUB_PAGES_PATH$DEPLOYMENT_FOLDER/$LAST_TAG"
+	DEPLOYMENT_FOLDER="release"
+	VERSION_SUFFIX="/${LAST_TAG:9}" # Extracts the version from "releases/VERSION" tag
+	echo "Promoting the release $LAST_TAG on $GITHUB_PAGES_PATH$DEPLOYMENT_FOLDER"
 fi
 
 cd $2/target
@@ -48,12 +50,15 @@ if [ -d $SUB_UPDATESITE_NAME ]
 then
 	rm -r $SUB_UPDATESITE_NAME
 fi
-mv $GENERATED_UPDATESITE_FOLDER $SUB_UPDATESITE_NAME
+if [ $DEPLOYMENT_FOLDER == "release" ]; then
+	mkdir $SUB_UPDATESITE_NAME
+fi
+mv $GENERATED_UPDATESITE_FOLDER $SUB_UPDATESITE_NAME$VERSION_SUFFIX
 git clone https://$GITHUB_DEPLOY_TOKEN$GITHUB_PROJECT_PATH --quiet
-if [ -d $UPDATESITE_PROJECT/$DEPLOYMENT_FOLDER/$SUB_UPDATESITE_NAME ]
+if [ -d $UPDATESITE_PROJECT/$DEPLOYMENT_FOLDER/$SUB_UPDATESITE_NAME$VERSION_SUFFIX ]
 then
-	rm -r $UPDATESITE_PROJECT/$DEPLOYMENT_FOLDER/$SUB_UPDATESITE_NAME
-	echo "An old version of the nightly repository has been found and removed"
+	rm -r $UPDATESITE_PROJECT/$DEPLOYMENT_FOLDER/$SUB_UPDATESITE_NAME$VERSION_SUFFIX
+	echo "An old version of the repository has been found and removed"
 fi
 echo "Creating the repository"
 mkdir -p $UPDATESITE_PROJECT/$DEPLOYMENT_FOLDER
@@ -63,7 +68,7 @@ cd $UPDATESITE_PROJECT/$DEPLOYMENT_FOLDER
 git config user.email "travis-ci"
 git config user.name "Travis-CI"
 git add -A
-git commit -m "Promoting a new nightly build for $SUB_UPDATESITE_NAME"
+git commit -m "Promoting a new $DEPLOYMENT_FOLDER build for $SUB_UPDATESITE_NAME"
 git push origin master
 echo "Build promoted"
 
