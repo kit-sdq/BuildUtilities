@@ -17,6 +17,7 @@
       <layout>p2</layout>
       <url>http://download.eclipse.org/releases/oxygen</url>
     </repository>
+    <!-- TODO add the update sites that are needed for the build here -->
   </repositories>
   <build>
     <plugins>

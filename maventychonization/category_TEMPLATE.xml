@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<site>
+   <feature url="features/theGroupID.feature_1.0.0.qualifier.jar" id="theGroupID.feature" version="1.0.0.qualifier">
+      <category name="thePlugInName"/>
+   </feature>
+   <category-def name="thePlugInName" label="thePlugInName">
+      <description>
+	<!-- TODO add a category description for the update site -->
+      </description>
+   </category-def>
+</site>
