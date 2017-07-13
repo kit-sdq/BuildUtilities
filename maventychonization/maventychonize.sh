@@ -52,6 +52,7 @@
 #        releng/...updatesite/category.xml file.
 #
 # At all these locations in the files we have already put TODO comments for you.
+# You can find them by running "grep 'TODO' */*/*.aggr */*/*.xml"
 #
 #########################################################################################
 # input:
@@ -63,7 +64,7 @@ BUNDLESFOLDER=bundles;
 BUNDLESPOM=$BUNDLESFOLDER/pom.xml;
 # features/
 FEATURESFOLDER=features;
-FEATURESPOM=$FEATUREFOLDER/pom.xml;
+FEATURESPOM=$FEATURESFOLDER/pom.xml;
 FEATUREFOLDER=features/$GROUPID.feature;
 FEATUREPROJECT=$FEATUREFOLDER/.project;
 FEATUREBUILDPROPS=$FEATUREFOLDER/build.properties;
