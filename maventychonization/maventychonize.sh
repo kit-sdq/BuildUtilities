@@ -36,6 +36,7 @@
 # After running the script you still have to 
 #    change the dependencies to features of other update sites in the
 #       releng/...updatesite.aggregated/updatesite.aggr file.
+#    (You do not need to repeat a feature x if you state that you depend on a feature y that depends on x.) 
 #
 # If you have more than one Eclipse plug-in to be included in the build, then you have to
 #    add these plug-ins to the 
@@ -44,6 +45,8 @@
 # If your build depends on other update sites, then you have to 
 #    add these update sites to the
 #       releng/...parent/pom.xml file.
+#    (Note that you explicitly have to state that the build depends on an update site A 
+#     even if you already stated that the build depends on an update site B, which depends on A.)
 #
 # Furthermore, you may want to 
 #    add a description, copyright, and license text to the 
