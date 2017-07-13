@@ -11,7 +11,4 @@
 	<artifactId>theGroupID.bundles</artifactId>
 	<packaging>pom</packaging>
 	<name>thePlugInName Bundle Modules</name>
-	<modules>
-		<module>theGroupID</module>
-	</modules>
 </project>

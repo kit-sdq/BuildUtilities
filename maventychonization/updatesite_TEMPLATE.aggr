@@ -8,11 +8,11 @@
       <!-- TODO replace the feature dependencies with those of your plug-ins that you want to make explicit -->
       <!-- example for an Eclipse project dependency: -->
       <repositories location="http://download.eclipse.org/releases/oxygen/" mirrorArtifacts="false">
-        <features name="org.eclipse.xtend.sdq.feature.group" versionRange="2.10.0" categories="//@customCategories[identifier='externals']"/>
+        <features name="org.eclipse.xtend.sdk.feature.group" versionRange="2.10.0"/>
       </repositories>
       <!-- example for a dependency to another update site: -->
       <repositories location="https://kit-sdq.github.io/updatesite/nightly/commons" mirrorArtifacts="false">
-        <features name="edu.kit.ipd.sdq.commons.feature.feature.group" versionRange="1.0.0" categories="//@customCategories[identifier='externals']"/>
+	<features name="edu.kit.ipd.sdq.commons.util.java.feature.feature.group" versionRange="[1.0.0,2.0.0)"/>
       </repositories>
     </contributions>
   </validationSets>
@@ -22,6 +22,4 @@
   <configurations operatingSystem="linux" windowSystem="gtk" architecture="x86_64"/>
   <configurations operatingSystem="macosx" windowSystem="cocoa"/>
   <configurations operatingSystem="macosx" windowSystem="cocoa" architecture="x86_64"/>
-  <!-- TODO fix repositories references here if you changed them above -->
-  <customCategories identifier="externals" label="External Dependencies" features="//@validationSets[label='main']/@contributions[label='externals']/@repositories.0/@features.0 //@validationSets[label='main']/@contributions[label='externals']/@repositories.1/@features.0"/>
 </aggregator:Aggregation>

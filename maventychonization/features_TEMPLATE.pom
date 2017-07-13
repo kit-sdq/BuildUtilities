@@ -11,7 +11,4 @@
 	<artifactId>theGroupID.features</artifactId>
 	<packaging>pom</packaging>
 	<name>thePlugInName Feature Modules</name>
-	<modules>
-		<module>theGroupID.feature</module>
-	</modules>
 </project>
