@@ -13,10 +13,15 @@
    <license url="http://www.example.com/license">
       [TODO Enter License Description here.]
    </license>
+   <!-- TODO add dependencies to other features here -->
+   <!--<requires>
+      <import feature="org.eclipse.xtend.sdk" version="2.10.0" match="greaterOrEqual"/>
+   </requires>-->
    <plugin
          id="theGroupID"
          download-size="0"
          install-size="0"
          version="0.0.0"
          unpack="false"/>
+   <!-- TODO add further plug-ins here -->
 </feature>
