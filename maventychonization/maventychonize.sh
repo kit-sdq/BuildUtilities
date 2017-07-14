@@ -3,9 +3,10 @@
 #
 # usage: 
 # ------
-# ./maventychonize.sh groupIDPrefix plugInName
-#     where groupdIDPrefix is usually of the form 'tld.domain.subdomain.whatever'
-#     and plugInName is usually of the form 'someShortName'
+# ./maventychonize.sh groupIDPrefix plugInName githubOrganization where 
+#      groupdIDPrefix is usually of the form 'tld.domain.subdomain.whatever',
+#      plugInName is usually of the form 'someShortName', and
+#      githubOrganization is often something like 'shortorg' or a github user name.
 #
 # prequisites:
 # ------------
@@ -30,23 +31,26 @@
 #        stored in the same folder 'releng',
 #    an aggregated update site project named '<groupIDPrefix>.<plugInName>.updatesite.aggregated'
 #        stored in the same folder 'releng', and
+#    a travis configuration
+#	 stored as '.travis.yml'.
 #
 # follow-up:
 # ----------
 # After running the script you still have to 
 #    change the dependencies to features of other update sites in the
-#       releng/...updatesite.aggregated/updatesite.aggr file.
-#    (You do not need to repeat a feature x if you state that you depend on a feature y that depends on x.) 
+#       releng/...updatesite.aggregated/updatesite.aggr file,
+#          (You do not need to repeat a feature x if you state that you depend on a feature y that depends on x.) 
+#    add these update sites to the
+#       releng/...parent/pom.xml file, and
+#          (Note that you explicitly have to state that the build depends on an update site A 
+#           even if you already stated that the build depends on an update site B, which depends on A.)
+#    add these features to the
+#       features/.../feature.xml file.
 #
 # If you have more than one Eclipse plug-in to be included in the build, then you have to
 #    add these plug-ins to the 
-#       releng/...aggregator/pom.xml file.
-#
-# If your build depends on other update sites, then you have to 
-#    add these update sites to the
-#       releng/...parent/pom.xml file.
-#    (Note that you explicitly have to state that the build depends on an update site A 
-#     even if you already stated that the build depends on an update site B, which depends on A.)
+#       releng/...aggregator/pom.xml file and to the
+#	features/.../feature.xml file. 
 #
 # Furthermore, you may want to 
 #    add a description, copyright, and license text to the 
@@ -57,11 +61,15 @@
 # At all these locations in the files we have already put TODO comments for you.
 # You can find them by running "grep 'TODO' */*/*.aggr */*/*.xml"
 #
+# Finally, you have to create an OAuth access token in your github settings and 
+# add its value for the evironment variable 'GITHUB_DEPLOY_TOKEN' (and do not display it in build log ;-)
+#
 #########################################################################################
 # input:
 GROUPIDPREFIX=$1;
 PLUGINNAME=$2;
 GROUPID=$GROUPIDPREFIX.$PLUGINNAME;
+GITHUBORGANIZATION=$3;
 # bundles/
 BUNDLESFOLDER=bundles;
 BUNDLESPOM=$BUNDLESFOLDER/pom.xml;
@@ -86,7 +94,9 @@ UPDATESITEPOM=$UPDATESITEFOLDER/pom.xml
 UPDATESITEAGGRFOLDER=$UPDATESITEFOLDER.aggregated;
 UPDATESITEAGGRPROJECT=$UPDATESITEAGGRFOLDER/.project;
 UPDATESITEAGGR=$UPDATESITEAGGRFOLDER/updatesite.aggr;
-UPDATESITEAGGRPOM=$UPDATESITEAGGRFOLDER/pom.xml
+UPDATESITEAGGRPOM=$UPDATESITEAGGRFOLDER/pom.xml;
+# .travis.yml
+TRAVISYML=.travis.yml;
 #########################################################################################
 # bundles/
 mv -v bundle_TEMPLATE.pom $BUNDLESPOM;
@@ -137,5 +147,10 @@ sed -i 's/theGroupID/'$GROUPID'/g' $UPDATESITEAGGR;
 mv -v updatesiteaggregated_TEMPLATE.pom $UPDATESITEAGGRPOM;
 sed -i 's/thePlugInName/'$PLUGINNAME'/g' $UPDATESITEAGGRPOM;
 sed -i 's/theGroupID/'$GROUPID'/g' $UPDATESITEAGGRPOM;
+# .travis.yml
+mv -v .travis_TEMPLATE.yml $TRAVISYML;
+sed -i 's/thePlugInName/'$PLUGINNAME'/g' $TRAVISYML;
+sed -i 's/theGroupID/'$GROUPID'/g' $TRAVISYML;
+sed -i 's/theGithubOrganization/'$GITHUBORGANIZATION'/g' $TRAVISYML;
 #########################################################################################
 echo "maventychonization done";
