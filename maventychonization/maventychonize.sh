@@ -148,7 +148,7 @@ mv -v updatesiteaggregated_TEMPLATE.pom $UPDATESITEAGGRPOM;
 sed -i 's/thePlugInName/'$PLUGINNAME'/g' $UPDATESITEAGGRPOM;
 sed -i 's/theGroupID/'$GROUPID'/g' $UPDATESITEAGGRPOM;
 # .travis.yml
-mv -v .travis_TEMPLATE.yml $TRAVISYML;
+mv -v travis_TEMPLATE.yml $TRAVISYML;
 sed -i 's/thePlugInName/'$PLUGINNAME'/g' $TRAVISYML;
 sed -i 's/theGroupID/'$GROUPID'/g' $TRAVISYML;
 sed -i 's/theGithubOrganization/'$GITHUBORGANIZATION'/g' $TRAVISYML;
