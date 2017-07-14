@@ -12,5 +12,6 @@
   <modules>
     <module>releng/theGroupID.aggregator</module>
     <module>releng/theGroupID.updatesite</module>
+    <module>releng/theGroupID.updatesite.aggregated</module>
   </modules>
 </project>
