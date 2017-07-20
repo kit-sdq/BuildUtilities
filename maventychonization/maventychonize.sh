@@ -55,7 +55,7 @@
 # Furthermore, you may want to 
 #    add a description, copyright, and license text to the 
 #        features/.../feature.xml file and 
-#    add a category description for the update site to the
+#    add a category description for the update site and change the label for it (as it will be displayed to users) in the
 #        releng/...updatesite/category.xml file.
 #
 # At all these locations in the files we have already put TODO comments for you.

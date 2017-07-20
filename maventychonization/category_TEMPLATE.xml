@@ -8,7 +8,7 @@
    </feature>
    <category-def name="thePlugInName" label="thePlugInName">
       <description>
-	<!-- TODO add a category description for the update site -->
+	<!-- TODO add a category description for the update site and make the label above nicer -->
       </description>
    </category-def>
 </site>
