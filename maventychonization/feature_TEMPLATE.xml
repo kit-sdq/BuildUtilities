@@ -15,7 +15,8 @@
    </license>
    <!-- TODO add dependencies to other features here -->
    <!--<requires>
-      <import feature="org.eclipse.xtend.sdk" version="2.10.0" match="greaterOrEqual"/>
+      <import plugin="com.google.guava"/>
+      <import feature="org.eclipse.xtend.source"/>
    </requires>-->
    <plugin
          id="theGroupID"

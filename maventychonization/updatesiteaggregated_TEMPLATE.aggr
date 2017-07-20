@@ -12,7 +12,7 @@
       </repositories>
       <!-- example for a dependency to another update site: -->
       <repositories location="https://kit-sdq.github.io/updatesite/nightly/commons" mirrorArtifacts="false">
-	<features name="edu.kit.ipd.sdq.commons.util.java.feature.feature.group" versionRange="[1.0.0,2.0.0)"/>
+	<features name="edu.kit.ipd.sdq.commons.util.java.feature.source.feature.group" versionRange="[1.0.0,2.0.0)"/>
       </repositories>
     </contributions>
   </validationSets>
