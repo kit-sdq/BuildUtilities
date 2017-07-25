@@ -7,11 +7,11 @@
     <contributions label="externals">
       <!-- TODO replace the feature dependencies with those of your plug-ins that you want to make explicit -->
       <!-- example for an Eclipse project dependency: -->
-      <repositories location="http://download.eclipse.org/releases/oxygen/" mirrorArtifacts="false">
+      <repositories location="http://sdqbuild.ipd.kit.edu/nexus/content/groups/eclipse-oxygen-complete/" mirrorArtifacts="false">
         <features name="org.eclipse.xtend.sdk.feature.group" versionRange="2.10.0"/>
       </repositories>
       <!-- example for a dependency to another update site: -->
-      <repositories location="https://kit-sdq.github.io/updatesite/nightly/commons" mirrorArtifacts="false">
+      <repositories location="https://sdqbuild.ipd.kit.edu/nexus/content/repositories/kit-sdq-nightly" mirrorArtifacts="false">
 	<features name="edu.kit.ipd.sdq.commons.util.java.feature.source.feature.group" versionRange="[1.0.0,2.0.0)"/>
       </repositories>
     </contributions>

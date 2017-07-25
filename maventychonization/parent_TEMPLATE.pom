@@ -19,9 +19,15 @@
     <repository>
       <id>Eclipse Oxygen</id>
       <layout>p2</layout>
-      <url>http://download.eclipse.org/releases/oxygen</url>
+      <url>http://sdqbuild.ipd.kit.edu/nexus/content/groups/eclipse-oxygen-complete</url>
     </repository>
-    <!-- TODO add the update sites that are needed for the build here -->
+    <!-- TODO add the update sites that are needed for the build here 
+    <repository>
+      <id>KIT SDQ</id>
+      <layout>p2</layout>
+      <url>http://sdqbuild.ipd.kit.edu/nexus/content/repositories/kit-sdq-nightly</url>
+    </repository>
+    -->
   </repositories>
   <build>
     <plugins>
