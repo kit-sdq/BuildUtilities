@@ -3,6 +3,10 @@
 #
 # usage: 
 # ------
+# Copy all files in this folder (templates and this bash script) into the main folder 
+# of the repository that you want to maventychonize. To avoid overriding your README.d
+# you can, for example, call "cp -i * yourRepo".
+# Change into the repository main folder and call this script as follows:
 # ./maventychonize.sh groupIDPrefix plugInName githubOrganization where 
 #      groupdIDPrefix is usually of the form 'tld.domain.subdomain.whatever',
 #      plugInName is usually of the form 'someShortName', and
@@ -99,6 +103,9 @@ UPDATESITEAGGRPOM=$UPDATESITEAGGRFOLDER/pom.xml;
 TRAVISYML=.travis.yml;
 #########################################################################################
 # bundles/
+if [ ! -d "$BUNDLESFOLDER" ]; then
+  mkdir -v $BUNDLESFOLDER;
+fi
 mv -v bundle_TEMPLATE.pom $BUNDLESPOM;
 sed -i 's/thePlugInName/'$PLUGINNAME'/g' $BUNDLESPOM;
 sed -i 's/theGroupID/'$GROUPID'/g' $BUNDLESPOM;
