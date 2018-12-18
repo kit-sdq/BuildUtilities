@@ -7,7 +7,7 @@
         <features name="org.emftext.commons.jdt.feature.group" categories="//@customCategories[identifier='externals']"/>
         <features name="org.emftext.commons.layout.feature.group" categories="//@customCategories[identifier='externals']"/>
       </repositories>
-      <repositories location="https://kopl.github.io/JaMoPP/updatesite/">
+      <repositories location="https://kopl.github.io/JaMoPP/updatesite/20181114/">
         <features name="org.emftext.language.java.feature.group" versionRange="1.4.1" categories="//@customCategories[identifier='externals']"/>
         <features name="org.emftext.language.java.jdt.feature.group" versionRange="1.4.1" categories="//@customCategories[identifier='externals']"/>
         <features name="org.emftext.language.java.ui.feature.group" versionRange="1.4.1" categories="//@customCategories[identifier='externals']"/>
