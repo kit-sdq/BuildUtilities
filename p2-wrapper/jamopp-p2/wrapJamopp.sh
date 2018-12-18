@@ -7,4 +7,4 @@ export TRAVIS_PULL_REQUEST=false
 export TRAVIS_BRANCH=master
 export GITHUB_DEPLOY_TOKEN=git
 #../travis-ci/deploy.sh jamopp-p2 . final "$1" "$2"
-../../travis-ci/deploy.sh jamopp-p2 . final "$1" "$2" 1.0.0
+../../travis-ci/deploy.sh jamopp-p2 . final "$1" "$2"

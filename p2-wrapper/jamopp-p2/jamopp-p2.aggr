@@ -2,12 +2,12 @@
 <aggregator:Aggregation xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:aggregator="http://www.eclipse.org/cbi/p2repo/2011/aggregator/1.1.0" label="JaMoPP P2 Wrapper" buildRoot="target">
   <validationSets label="main">
     <contributions label="externals">
-      <repositories location="http://update.emftext.org/release" mirrorArtifacts="false">
+      <repositories location="http://kit-sdq.github.io/updatesite/nightly/p2-wrapper/emftext-p2" mirrorArtifacts="false">
         <features name="org.emftext.commons.antlr3_4_0.feature.group" categories="//@customCategories[identifier='externals']"/>
         <features name="org.emftext.commons.jdt.feature.group" categories="//@customCategories[identifier='externals']"/>
         <features name="org.emftext.commons.layout.feature.group" categories="//@customCategories[identifier='externals']"/>
       </repositories>
-      <repositories location="http://update.jamopp.org/trunk/">
+      <repositories location="https://kopl.github.io/JaMoPP/updatesite/">
         <features name="org.emftext.language.java.feature.group" versionRange="1.4.1" categories="//@customCategories[identifier='externals']"/>
         <features name="org.emftext.language.java.jdt.feature.group" versionRange="1.4.1" categories="//@customCategories[identifier='externals']"/>
         <features name="org.emftext.language.java.ui.feature.group" versionRange="1.4.1" categories="//@customCategories[identifier='externals']"/>
