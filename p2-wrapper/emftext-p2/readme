@@ -1,0 +1,1 @@
+Run the "wrapJamopp.sh" script to deploy a current P2 Wrapper Update Site for update.jamopp.org/trunk on our update site, as the original one is in pre-p2 format that cannot be processed by Maven.
