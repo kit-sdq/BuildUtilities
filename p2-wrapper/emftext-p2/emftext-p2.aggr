@@ -2,7 +2,7 @@
 <aggregator:Aggregation xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:aggregator="http://www.eclipse.org/cbi/p2repo/2011/aggregator/1.1.0" label="EMFText P2 Wrapper" buildRoot="target">
   <validationSets label="main">
     <contributions label="externals">
-      <repositories location="https://kopl.github.io/EMFText/updatesite/20180827/" mirrorArtifacts="false">
+      <repositories location="https://kopl.github.io/EMFText/updatesite/20180827/">
         <features name="org.emftext.commons.antlr3_4_0.feature.group" categories="//@customCategories[identifier='externals']"/>
         <features name="org.emftext.commons.jdt.feature.group" categories="//@customCategories[identifier='externals']"/>
         <features name="org.emftext.commons.layout.feature.group" categories="//@customCategories[identifier='externals']"/>
