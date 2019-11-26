@@ -44,7 +44,18 @@ git checkout -b "$DEV_VERSION_BRANCH"
 set -x
 sh $SCRIPT_DIR/change_version.sh $DIR $RELEASE_VERSION $DEV_VERSION false
 git commit -am "[Release Process] Set development version to $DEV_VERSION"
+# Disable failing on error to be able to reset directory afterwards
+set +x
+set +e
 mvn clean verify
+MVN_RESULT=$?
+if [[ "$MVN_RESULT" -ne 0 ]] ; then
+  echo "Could not successfully perform build for development version"
+  git checkout master
+  git branch -D "$DEV_VERSION_BRANCH"
+  exit $MVN_RESULT
+fi
+set -e
 DEV_VERSION_COMMIT=$(git rev-parse HEAD)
 
 # Upgrade to release version, exchange nightly dependencies with release dependencies and commit it in branch
@@ -56,10 +67,23 @@ git grep -l $VITRUV_NIGHTLY_SITE | xargs -r sed -i "s|$VITRUV_NIGHTLY_SITE/frame
 git grep -l $VITRUV_NIGHTLY_SITE | xargs -r sed -i "s|$VITRUV_NIGHTLY_SITE/domains|$VITRUV_RELEASE_SITE/domains|g"
 git grep -l $SDQ_NIGHTLY_SITE | xargs -r sed -i "s|$SDQ_NIGHTLY_SITE|$SDQ_RELEASE_SITE|g"
 git commit -am "[Release Process] Set release version to $RELEASE_VERSION"
+# Disable failing on error to be able to reset directory afterwards
+set +x
+set +e
 mvn clean verify
+MVN_RESULT=$?
+if [[ "$MVN_RESULT" -ne 0 ]] ; then
+  echo "Could not successfully perform build for release version"
+  git checkout master
+  git branch -D "$DEV_VERSION_BRANCH"
+  git branch -D "$RELEASE_VERSION_BRANCH"
+  exit $MVN_RESULT
+fi
+set -e
 
 # Merge release in master, add release tag and pick development version on top (no merge, as it produces another merge commit due to concurrent version modifications in both branches)
 git checkout $BRANCH
+set -x
 git merge "$RELEASE_VERSION_BRANCH"
 git branch -D "$RELEASE_VERSION_BRANCH"
 git tag "releases/$RELEASE_VERSION"
