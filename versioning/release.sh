@@ -63,10 +63,10 @@ git checkout $BRANCH
 git checkout -b "$RELEASE_VERSION_BRANCH"
 set -x
 sh $SCRIPT_DIR/change_version.sh $DIR $RELEASE_VERSION $RELEASE_VERSION true
-git grep -l $VITRUV_NIGHTLY_SITE | xargs -r sed -i "s|$VITRUV_NIGHTLY_SITE/framework|$VITRUV_RELEASE_SITE/framework|g"
-git grep -l $VITRUV_NIGHTLY_SITE | xargs -r sed -i "s|$VITRUV_NIGHTLY_SITE/domains|$VITRUV_RELEASE_SITE/domains|g"
+git grep -l $VITRUV_NIGHTLY_SITE | xargs -r sed -i "" "s|$VITRUV_NIGHTLY_SITE/framework|$VITRUV_RELEASE_SITE/framework|g"
+git grep -l $VITRUV_NIGHTLY_SITE | xargs -r sed -i "" "s|$VITRUV_NIGHTLY_SITE/domains|$VITRUV_RELEASE_SITE/domains|g"
 # We should only use KIT-SDQ releases, if not, enable the subsequent line
-# git grep -l $SDQ_NIGHTLY_SITE | xargs -r sed -i "s|$SDQ_NIGHTLY_SITE|$SDQ_RELEASE_SITE|g"
+# git grep -l $SDQ_NIGHTLY_SITE | xargs -r sed -i "" "s|$SDQ_NIGHTLY_SITE|$SDQ_RELEASE_SITE|g"
 git commit -am "[Release Process] Set release version to $RELEASE_VERSION"
 # Disable failing on error to be able to reset directory afterwards
 set +x
@@ -92,10 +92,10 @@ git cherry-pick --strategy=recursive -X theirs $DEV_VERSION_COMMIT
 git branch -D "$DEV_VERSION_BRANCH"
 git clean -f
 # Reset release dependencies to nightly dependencies
-git grep -l $VITRUV_RELEASE_SITE | xargs -r sed -i "s|$VITRUV_RELEASE_SITE/framework|$VITRUV_NIGHTLY_SITE/framework|g"
-git grep -l $VITRUV_RELEASE_SITE | xargs -r sed -i "s|$VITRUV_RELEASE_SITE/domains|$VITRUV_NIGHTLY_SITE/domains|g"
+git grep -l $VITRUV_RELEASE_SITE | xargs -r sed -i "" "s|$VITRUV_RELEASE_SITE/framework|$VITRUV_NIGHTLY_SITE/framework|g"
+git grep -l $VITRUV_RELEASE_SITE | xargs -r sed -i "" "s|$VITRUV_RELEASE_SITE/domains|$VITRUV_NIGHTLY_SITE/domains|g"
 # We should only use KIT-SDQ releases, if not, enable the subsequent line
-# git grep -l $SDQ_RELEASE_SITE | xargs -r sed -i "s|$SDQ_RELEASE_SITE|$SDQ_NIGHTLY_SITE|g"
+# git grep -l $SDQ_RELEASE_SITE | xargs -r sed -i "" "s|$SDQ_RELEASE_SITE|$SDQ_NIGHTLY_SITE|g"
 git commit -a --amend --no-edit
 set +x
 
