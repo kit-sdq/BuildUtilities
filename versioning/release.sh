@@ -72,7 +72,7 @@ git cherry-pick --strategy=recursive -X theirs $DEV_VERSION_COMMIT
 git branch -D "$DEV_VERSION_BRANCH"
 git clean -f
 # Reset release dependencies to nightly dependencies
-git grep -l $UPDATE_SITE | xargs -r sed -r -i "s#$UPDATE_SITE/release/(.*)<$UPDATE_SITE/nightly<#g"
+git grep -l $UPDATE_SITE | xargs -r sed -r -i "s#$UPDATE_SITE/release/(.*)/latest<$UPDATE_SITE/nightly/\1<#g"
 git commit -a --amend --no-edit
 set +x
 
