@@ -63,19 +63,6 @@ set -x
 bash $SCRIPT_DIR/change_version.sh $DIR $RELEASE_VERSION $RELEASE_VERSION true
 git grep -l $VITRUV_NIGHTLY_SITE | xargs -r sed -r -i 's/https:\/\/vitruv-tools.github.io\/updatesite\/nightly\/(.*)</https:\/\/vitruv-tools.github.io\/updatesite\/release\/\1\/latest</g'
 git commit -am "[Release Process] Set release version to $RELEASE_VERSION"
-# Disable failing on error to be able to reset directory afterwards
-set +x
-set +e
-./mvnw clean verify
-MVN_RESULT=$?
-if [[ "$MVN_RESULT" -ne 0 ]] ; then
-  echo "Could not successfully perform build for release version"
-  git checkout main
-  git branch -D "$DEV_VERSION_BRANCH"
-  git branch -D "$RELEASE_VERSION_BRANCH"
-  exit $MVN_RESULT
-fi
-set -e
 
 # Merge release in main and pick development version on top (no merge, as it produces another merge commit due to concurrent version modifications in both branches)
 git checkout $BRANCH
