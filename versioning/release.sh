@@ -49,7 +49,7 @@ set +e
 MVN_RESULT=$?
 if [[ "$MVN_RESULT" -ne 0 ]] ; then
   echo "Could not successfully perform build for development version"
-  git checkout main
+  git checkout $BRANCH
   git branch -D "$DEV_VERSION_BRANCH"
   exit $MVN_RESULT
 fi
@@ -61,7 +61,7 @@ git checkout $BRANCH
 git checkout -b "$RELEASE_VERSION_BRANCH"
 set -x
 bash $SCRIPT_DIR/change_version.sh $DIR $RELEASE_VERSION $RELEASE_VERSION true
-git grep -l $VITRUV_NIGHTLY_SITE | xargs -r sed -r -i 's/https:\/\/vitruv-tools.github.io\/updatesite\/nightly\/(.*)</https:\/\/vitruv-tools.github.io\/updatesite\/release\/\1\/latest</g'
+git grep -l $VITRUV_NIGHTLY_SITE | xargs -r sed -r -i 's#https://vitruv-tools.github.io/updatesite/nightly/(.*)<#https://vitruv-tools.github.io/updatesite/release/\1/latest<#g'
 git commit -am "[Release Process] Set release version to $RELEASE_VERSION"
 
 # Merge release in main and pick development version on top (no merge, as it produces another merge commit due to concurrent version modifications in both branches)
@@ -73,7 +73,7 @@ git cherry-pick --strategy=recursive -X theirs $DEV_VERSION_COMMIT
 git branch -D "$DEV_VERSION_BRANCH"
 git clean -f
 # Reset release dependencies to nightly dependencies
-git grep -l $VITRUV_RELEASE_SITE | xargs -r sed -r -i 's/https:\/\/vitruv-tools.github.io\/updatesite\/release\/(.*)</https:\/\/vitruv-tools.github.io\/updatesite\/nightly</g'
+git grep -l $VITRUV_RELEASE_SITE | xargs -r sed -r -i 's#https://vitruv-tools.github.io/updatesite/release/(.*)<#https://vitruv-tools.github.io/updatesite/nightly<#g'
 git commit -a --amend --no-edit
 set +x
 
