@@ -2,22 +2,21 @@
 #
 # Removes the qualifier and snapshot tags and commits the repository as a release version, and increases the version number to a new development version afterwards
 # $1: Path to project
-# $2: Current version
-# $3: New version
+# $2: URL of update site: suffix "nightly/$SUBSITE" will be replaced with suffix "release/$SUBSITE/latest"
+# $3: Current version
+# $4: New version
 
-if [ $# -lt 3 ]; then
+if [ $# -lt 4 ]; then
 	echo "Not enough arguments given. We need the project directory, the release and next development version number."
 	exit 1
 fi
 
 DIR=$1
-RELEASE_VERSION=$2
+UPDATE_SITE=$2
+RELEASE_VERSION=$3
 RELEASE_VERSION_BRANCH="tmp/Release$RELEASE_VERSION"
-DEV_VERSION=$3
+DEV_VERSION=$4
 DEV_VERSION_BRANCH="tmp/Dev$DEV_VERSION"
-
-VITRUV_NIGHTLY_SITE="vitruv-tools.github.io/updatesite/nightly"
-VITRUV_RELEASE_SITE="vitruv-tools.github.io/updatesite/release"
 
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
@@ -61,7 +60,7 @@ git checkout $BRANCH
 git checkout -b "$RELEASE_VERSION_BRANCH"
 set -x
 bash $SCRIPT_DIR/change_version.sh $DIR $RELEASE_VERSION $RELEASE_VERSION true
-git grep -l $VITRUV_NIGHTLY_SITE | xargs -r sed -r -i 's#https://vitruv-tools.github.io/updatesite/nightly/(.*)<#https://vitruv-tools.github.io/updatesite/release/\1/latest<#g'
+git grep -l $UPDATE_SITE | xargs -r sed -r -i "s#$UPDATE_SITE/nightly/(.*)<#$UPDATE_SITE/release/\1/latest<#g"
 git commit -am "[Release Process] Set release version to $RELEASE_VERSION"
 
 # Merge release in main and pick development version on top (no merge, as it produces another merge commit due to concurrent version modifications in both branches)
@@ -73,7 +72,7 @@ git cherry-pick --strategy=recursive -X theirs $DEV_VERSION_COMMIT
 git branch -D "$DEV_VERSION_BRANCH"
 git clean -f
 # Reset release dependencies to nightly dependencies
-git grep -l $VITRUV_RELEASE_SITE | xargs -r sed -r -i 's#https://vitruv-tools.github.io/updatesite/release/(.*)<#https://vitruv-tools.github.io/updatesite/nightly<#g'
+git grep -l $UPDATE_SITE | xargs -r sed -r -i "s#$UPDATE_SITE/release/(.*)<$UPDATE_SITE/nightly<#g"
 git commit -a --amend --no-edit
 set +x
 
